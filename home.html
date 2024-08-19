@@ -271,4 +271,19 @@ https://example.com/movie3.mp4
         function openVideoModal() {
             document.getElementById('info-modal').style.display = 'none';
             document.getElementById('video-modal').style.display = 'flex';
-            document.getElementById('video-player
+            document.getElementById('video-player').src = 'https://example.com/movie1.mp4'; // Asignar URL del video
+            document.getElementById('video-player').play();
+        }
+
+        function backToInfoModal() {
+            document.getElementById('video-modal').style.display = 'none';
+            document.getElementById('info-modal').style.display = 'flex';
+        }
+
+        // Parsear el archivo M3U y generar las tarjetas
+        const movies = parseM3U(m3uContent);
+        generateCards(movies);
+    </script>
+</body>
+
+</html>
