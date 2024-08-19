@@ -48,6 +48,24 @@
             max-width: 100%;
         }
 
+        .nav .menu {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav .menu a {
+            color: #e4e7e9;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .nav .menu a:hover {
+            background: #2a2b2c;
+        }
+
         .container {
             padding: 1rem;
             display: grid;
@@ -100,6 +118,10 @@
                 width: 120px;
             }
 
+            .nav .menu {
+                display: none; /* Oculta el menú en pantallas pequeñas */
+            }
+
             .container {
                 grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
             }
@@ -119,6 +141,11 @@
     <div class="nav">
         <h1>ZecTV</h1>
         <input type="text" class="search-bar" placeholder="Buscar...">
+        <div class="menu">
+            <a href="#">Inicio</a>
+            <a href="#">Género</a>
+            <a href="#">TV</a>
+        </div>
     </div>
 
     <div class="container">
@@ -150,3 +177,28 @@
 
 </html>
 
+            <img src="https://via.placeholder.com/400x250" alt="Película 1">
+            <div class="card-content">
+                <h3>Película 1</h3>
+                <p>Descripción breve de la película.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://via.placeholder.com/400x250" alt="Película 2">
+            <div class="card-content">
+                <h3>Película 2</h3>
+                <p>Descripción breve de la película.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://via.placeholder.com/400x250" alt="Película 3">
+            <div class="card-content">
+                <h3>Película 3</h3>
+                <p>Descripción breve de la película.</p>
+            </div>
+        </div>
+        <!-- Añadir más tarjetas según sea necesario -->
+    </div>
+</body>
+
+</html>
