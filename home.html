@@ -109,6 +109,60 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
         }
 
+        .popular-entries {
+            padding: 1rem;
+            overflow-x: auto;
+            white-space: nowrap;
+            background: #1c1e1f;
+        }
+
+        .popular-entries h2 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: #e4e7e9;
+        }
+
+        .popular-entries .entry {
+            display: inline-block;
+            position: relative;
+            margin-right: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+            width: 320px;
+            height: 180px;
+        }
+
+        .popular-entries .entry img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .popular-entries .entry:hover .overlay {
+            opacity: 1;
+        }
+
+        .popular-entries .entry .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            color: #e4e7e9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            text-align: center;
+        }
+
+        .popular-entries .entry .overlay h3 {
+            font-size: 1rem;
+            margin: 0;
+        }
+
         @media (max-width: 600px) {
             .nav h1 {
                 font-size: 1.2rem;
@@ -173,31 +227,39 @@
         </div>
         <!-- Añadir más tarjetas según sea necesario -->
     </div>
-</body>
 
-</html>
-
-            <img src="https://via.placeholder.com/400x250" alt="Película 1">
-            <div class="card-content">
-                <h3>Película 1</h3>
-                <p>Descripción breve de la película.</p>
+    <div class="popular-entries">
+        <h2>Entradas Populares</h2>
+        <div class="entry">
+            <img src="https://via.placeholder.com/1080x720" alt="Película Popular 1">
+            <div class="overlay">
+                <h3>Película Popular 1</h3>
             </div>
         </div>
-        <div class="card">
-            <img src="https://via.placeholder.com/400x250" alt="Película 2">
-            <div class="card-content">
-                <h3>Película 2</h3>
-                <p>Descripción breve de la película.</p>
+        <div class="entry">
+            <img src="https://via.placeholder.com/1080x720" alt="Película Popular 2">
+            <div class="overlay">
+                <h3>Película Popular 2</h3>
             </div>
         </div>
-        <div class="card">
-            <img src="https://via.placeholder.com/400x250" alt="Película 3">
-            <div class="card-content">
-                <h3>Película 3</h3>
-                <p>Descripción breve de la película.</p>
+        <div class="entry">
+            <img src="https://via.placeholder.com/1080x720" alt="Película Popular 3">
+            <div class="overlay">
+                <h3>Película Popular 3</h3>
             </div>
         </div>
-        <!-- Añadir más tarjetas según sea necesario -->
+        <div class="entry">
+            <img src="https://via.placeholder.com/1080x720" alt="Película Popular 4">
+            <div class="overlay">
+                <h3>Película Popular 4</h3>
+            </div>
+        </div>
+        <div class="entry">
+            <img src="https://via.placeholder.com/1080x720" alt="Película Popular 5">
+            <div class="overlay">
+                <h3>Película Popular 5</h3>
+            </div>
+        </div>
     </div>
 </body>
 
