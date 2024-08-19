@@ -91,29 +91,17 @@
             opacity: 0;
         }
 
-        .hero .overlay {
+        .hero .title-overlay {
             position: absolute;
-            top: 0;
+            bottom: 20px;
             left: 0;
             width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            color: #e4e7e9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .hero:hover .overlay {
-            opacity: 1;
-        }
-
-        .hero .overlay h1 {
-            font-size: 2rem;
-            margin: 0;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1rem;
             text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e4e7e9;
         }
 
         @media (max-width: 600px) {
@@ -129,8 +117,8 @@
                 display: none; /* Oculta el menú en pantallas pequeñas */
             }
 
-            .hero .overlay h1 {
-                font-size: 1.5rem;
+            .hero .title-overlay {
+                font-size: 1rem;
             }
         }
     </style>
@@ -149,23 +137,31 @@
 
     <div class="hero">
         <div class="carousel">
-            <img src="https://via.placeholder.com/1920x1080/ff0000" alt="Película Popular 1" class="visible">
-            <img src="https://via.placeholder.com/1920x1080/00ff00" alt="Película Popular 2" class="hidden">
-            <img src="https://via.placeholder.com/1920x1080/0000ff" alt="Película Popular 3" class="hidden">
-        </div>
-        <div class="overlay">
-            <h1>Bienvenido a ZecTV</h1>
+            <!-- Película 1 -->
+            <img src="https://image.tmdb.org/t/p/original/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg" alt="Oppenheimer" class="visible">
+            <div class="title-overlay">Oppenheimer</div>
+            <!-- Película 2 -->
+            <img src="https://image.tmdb.org/t/p/original/5p4xXw0JGqZ5mwwPPHbnUj5YyPQ.jpg" alt="Barbie" class="hidden">
+            <div class="title-overlay">Barbie</div>
+            <!-- Película 3 -->
+            <img src="https://image.tmdb.org/t/p/original/6bbZ6XyvgfjhQwbplnUh1LSj1ky.jpg" alt="Misión Imposible 7" class="hidden">
+            <div class="title-overlay">Misión Imposible 7</div>
         </div>
     </div>
 
     <script>
         const images = document.querySelectorAll('.carousel img');
+        const titles = document.querySelectorAll('.title-overlay');
         let currentIndex = 0;
 
         function showNextImage() {
             images[currentIndex].classList.add('hidden');
+            titles[currentIndex].style.opacity = '0';
+
             currentIndex = (currentIndex + 1) % images.length;
+
             images[currentIndex].classList.remove('hidden');
+            titles[currentIndex].style.opacity = '1';
         }
 
         setInterval(showNextImage, 6000); // Cambia la imagen cada 6 segundos
