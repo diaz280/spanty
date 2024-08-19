@@ -8,8 +8,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #0a0a0a;
-            color: #f0f0f0;
+            background: #121212;
+            color: #e0e0e0;
             margin: 0;
             padding: 0;
             display: flex;
@@ -19,8 +19,10 @@
         }
 
         h1 {
-            margin: 1rem;
-            color: #e5e5e5;
+            margin: 2rem 0;
+            color: #ffffff;
+            font-size: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .container {
@@ -33,8 +35,8 @@
         }
 
         .card {
-            background: #1c1e1f;
-            border-radius: 10px;
+            background: #1f1f1f;
+            border-radius: 12px;
             padding: 1rem;
             width: calc(50% - 1rem);
             text-align: center;
@@ -42,24 +44,25 @@
             cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         }
 
         .card:hover {
             transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
         }
 
         .card img {
             width: 100%;
             height: auto;
-            border-radius: 10px;
+            border-radius: 12px;
             transition: opacity 0.3s ease;
         }
 
         .card h2 {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-top: 0.5rem;
-            color: #e5e5e5;
+            color: #e0e0e0;
         }
 
         .modal {
@@ -77,48 +80,48 @@
         }
 
         .modal-content {
-            background: #1c1e1f;
+            background: #1f1f1f;
             padding: 2rem;
-            border-radius: 10px;
+            border-radius: 12px;
             max-width: 600px;
             width: 100%;
             text-align: left;
             position: relative;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
         }
 
         .modal-content img {
             width: 100%;
             height: auto;
-            border-radius: 10px;
+            border-radius: 12px;
             margin-bottom: 1rem;
         }
 
         .modal-content h2 {
             margin-top: 0;
-            color: #e5e5e5;
+            color: #ffffff;
         }
 
         .modal-content p {
             font-size: 1rem;
-            color: #ccc;
+            color: #cccccc;
             margin-bottom: 1.5rem;
         }
 
         .play-button {
             display: inline-block;
-            padding: 0.5rem 1rem;
-            background: #4CAF50;
-            color: #fff;
+            padding: 0.75rem 1.5rem;
+            background: #ff5722;
+            color: #ffffff;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 1rem;
             transition: background 0.3s ease;
         }
 
         .play-button:hover {
-            background: #45a049;
+            background: #e64a19;
         }
 
         .close-button {
@@ -127,7 +130,7 @@
             right: 10px;
             font-size: 24px;
             cursor: pointer;
-            color: #fff;
+            color: #ffffff;
         }
 
         .video-modal {
@@ -147,13 +150,14 @@
         .video-modal-content {
             max-width: 90%;
             width: 100%;
-            background: #1c1e1f;
-            border-radius: 10px;
+            background: #1f1f1f;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
         }
 
         .video-modal video {
             width: 100%;
-            border-radius: 10px;
+            border-radius: 12px;
         }
 
         @media (max-width: 768px) {
