@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Películas en Streaming</title>
+    <title>ZecTV - Películas en Streaming</title>
     <style>
         * {
             margin: 0;
@@ -14,11 +14,12 @@
         }
 
         body {
-            background: #181a1b;
+            background: #121212;
             color: #e4e7e9;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            font-size: 16px;
         }
 
         .nav {
@@ -41,16 +42,16 @@
             padding: 0.5rem;
             border-radius: 4px;
             color: #e4e7e9;
-            width: 200px;
+            width: 150px;
         }
 
         .container {
-            padding: 2rem;
-            max-width: 1200px;
-            margin: auto;
+            padding: 1rem;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            max-width: 100%;
+            margin: auto;
         }
 
         .card {
@@ -68,17 +69,17 @@
         }
 
         .card-content {
-            padding: 1rem;
+            padding: 0.5rem;
             text-align: center;
         }
 
         .card-content h3 {
             margin-bottom: 0.5rem;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .card-content p {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: #b0b0b0;
         }
 
@@ -96,11 +97,12 @@
             padding: 1rem;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            width: 200px;
         }
 
         .accessibility-menu h2 {
             margin-bottom: 1rem;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
 
         .accessibility-menu label {
@@ -117,7 +119,7 @@
             display: block;
             width: 100%;
             padding: 0.75rem;
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: #e4e7e9;
             background: #007bff;
             border: none;
@@ -129,12 +131,46 @@
         .accessibility-menu button:hover {
             background: #0056b3;
         }
+
+        @media (max-width: 600px) {
+            .nav h1 {
+                font-size: 1.2rem;
+            }
+
+            .nav .search-bar {
+                width: 100px;
+            }
+
+            .container {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+
+            .card-content h3 {
+                font-size: 0.9rem;
+            }
+
+            .card-content p {
+                font-size: 0.7rem;
+            }
+
+            .accessibility-menu {
+                width: 100%;
+            }
+
+            .accessibility-menu h2 {
+                font-size: 1rem;
+            }
+
+            .accessibility-menu button {
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 
 <body>
     <div class="nav">
-        <h1>Películas en Streaming</h1>
+        <h1>ZecTV</h1>
         <input type="text" class="search-bar" placeholder="Buscar...">
     </div>
 
@@ -165,7 +201,7 @@
     </div>
 
     <div class="accessibility-menu">
-        <h2>Menú de Accesibilidad</h2>
+        <h2>Accesibilidad</h2>
         <label for="font-size">Tamaño del texto:</label>
         <input type="range" id="font-size" min="14" max="24" value="16">
         <button onclick="resetSettings()">Restablecer</button>
