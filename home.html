@@ -55,16 +55,6 @@
             object-fit: cover;
         }
 
-        .card .card-content {
-            padding: 0.5rem;
-        }
-
-        .card h2 {
-            margin: 0.5rem 0;
-            font-size: 1.2rem;
-            color: #333;
-        }
-
         .card .overlay {
             position: absolute;
             top: 0;
@@ -72,23 +62,21 @@
             right: 0;
             bottom: 0;
             background: rgba(0, 0, 0, 0.5);
-            color: #fff;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             opacity: 0;
             transition: opacity 0.3s ease;
-            padding: 1rem;
-            text-align: center;
+            cursor: pointer;
         }
 
         .card:hover .overlay {
             opacity: 1;
         }
 
-        .overlay h2 {
-            font-size: 1.5rem;
+        .play-icon {
+            font-size: 3rem;
+            color: #fff;
         }
 
         .modal {
@@ -103,7 +91,6 @@
             justify-content: center;
             align-items: center;
             padding: 1rem;
-            overflow: auto;
         }
 
         .modal-content {
@@ -114,7 +101,6 @@
             max-width: 1000px;
             width: 100%;
             height: 100%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -126,8 +112,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            background-image: url('https://via.placeholder.com/1000x600?text=Imagen+de+la+película');
+            background: rgba(0, 0, 0, 0.8);
             background-size: cover;
             filter: blur(8px);
             z-index: -1;
@@ -178,7 +163,7 @@
             background: #e64a19;
         }
 
-        .close-button {
+        .close-button, .video-back-button {
             position: absolute;
             top: 10px;
             right: 10px;
@@ -213,31 +198,6 @@
             width: 100%;
             border-radius: 8px;
         }
-
-        .video-back-button {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 24px;
-            cursor: pointer;
-            color: #fff;
-        }
-
-        @media (max-width: 768px) {
-            .card {
-                width: 100%;
-            }
-
-            .modal-info {
-                max-width: 90%;
-                font-size: 0.9rem;
-            }
-
-            .play-button {
-                font-size: 1.2rem;
-                padding: 0.75rem 1.5rem;
-            }
-        }
     </style>
 </head>
 
@@ -250,14 +210,14 @@
     <!-- Modal para Información de la Película -->
     <div class="modal" id="info-modal">
         <div class="modal-content">
-            <span class="close-button" onclick="closeModal('info-modal')">&times;</span>
             <div class="modal-background" id="modal-background"></div>
             <div class="modal-info">
                 <img id="modal-movie-image" src="" alt="Imagen de la película">
                 <h2 id="modal-movie-title">Título de la Película</h2>
                 <p id="modal-movie-description">Descripción de la película...</p>
             </div>
-            <button class="play-button" onclick="openVideoModal()">▶️ Reproducir</button>
+            <button class="play-button" onclick="openVideoModal()">▶️</button>
+            <span class="close-button" onclick="closeModal('info-modal')">&times;</span>
         </div>
     </div>
 
@@ -270,7 +230,6 @@
     </div>
 
     <script>
-        // Ejemplo de contenido de un archivo M3U parseado (esto normalmente vendría de un archivo real)
         const m3uContent = `
 #EXTM3U
 #EXTINF:-1, Película 1
@@ -281,7 +240,6 @@ https://example.com/movie2.mp4
 https://example.com/movie3.mp4
         `;
 
-        // Parsear el contenido M3U y generar tarjetas
         function parseM3U(content) {
             const lines = content.split('\n');
             const movies = [];
@@ -307,15 +265,10 @@ https://example.com/movie3.mp4
                 card.className = 'card';
                 card.innerHTML = `
                     <img src="https://via.placeholder.com/250x140?text=${encodeURIComponent(movie.name)}" alt="${movie.name}">
-                    <div class="card-content">
-                        <h2>${movie.name}</h2>
-                    </div>
-                    <div class="overlay">
-                        <h2>${movie.name}</h2>
-                        <p>Haz clic para más información</p>
+                    <div class="overlay" onclick="openInfoModal(${JSON.stringify(movie)})">
+                        <span class="play-icon">▶️</span>
                     </div>
                 `;
-                card.addEventListener('click', () => openInfoModal(movie));
                 container.appendChild(card);
             });
         }
@@ -335,7 +288,7 @@ https://example.com/movie3.mp4
         function openVideoModal() {
             document.getElementById('info-modal').style.display = 'none';
             document.getElementById('video-modal').style.display = 'flex';
-            document.getElementById('video-player').src = 'https://example.com/movie1.mp4'; // Asignar URL del video
+            document.getElementById('video-player').src = 'https://example.com/movie1.mp4'; // URL del video
             document.getElementById('video-player').play();
         }
 
