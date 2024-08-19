@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZecTV - Reproductor M3U</title>
+    <title>ZecTV - Lista de Películas</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -58,27 +58,88 @@
             margin-bottom: 0.5rem;
         }
 
-        .card p {
-            font-size: 0.9rem;
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #1c1e1f;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            text-align: left;
+        }
+
+        .modal-content img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .modal-content h2 {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-content p {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
             color: #ccc;
         }
 
-        .play-icon {
+        .play-button {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .play-button:hover {
+            background: #45a049;
+        }
+
+        .close-button {
             position: absolute;
             top: 10px;
             right: 10px;
-            font-size: 24px;
-            color: #e4e7e9;
+            font-size: 20px;
             cursor: pointer;
+            color: #fff;
         }
 
-        .video-player {
+        .video-modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
             width: 100%;
-            max-width: 800px;
-            margin-top: 2rem;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
         }
 
-        .video-player video {
+        .video-modal-content {
+            max-width: 800px;
+            width: 90%;
+        }
+
+        .video-modal video {
             width: 100%;
             border-radius: 8px;
         }
@@ -97,8 +158,23 @@
         <!-- Las tarjetas se generan dinámicamente aquí -->
     </div>
 
-    <div class="video-player" id="video-player" style="display: none;">
-        <video controls id="video" src=""></video>
+    <!-- Modal para Información de la Película -->
+    <div class="modal" id="info-modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('info-modal')">&times;</span>
+            <img id="modal-movie-image" src="" alt="Imagen de la película">
+            <h2 id="modal-movie-title">Título de la Película</h2>
+            <p id="modal-movie-description">Descripción de la película...</p>
+            <button class="play-button" onclick="openVideoModal()">▶️ Reproducir</button>
+        </div>
+    </div>
+
+    <!-- Modal para el Reproductor de Video -->
+    <div class="video-modal" id="video-modal">
+        <div class="video-modal-content">
+            <span class="close-button" onclick="closeModal('video-modal')">&times;</span>
+            <video controls id="video-player"></video>
+        </div>
     </div>
 
     <script>
@@ -140,20 +216,29 @@ https://example.com/movie3.mp4
                 card.innerHTML = `
                     <img src="https://via.placeholder.com/1080x720?text=${encodeURIComponent(movie.name)}" alt="${movie.name}">
                     <h2>${movie.name}</h2>
-                    <p>Descripción de la película ${movie.name}...</p>
-                    <div class="play-icon">▶️</div>
                 `;
-                card.addEventListener('click', () => playMovie(movie.url));
+                card.addEventListener('click', () => openInfoModal(movie));
                 container.appendChild(card);
             });
         }
 
-        function playMovie(url) {
-            const videoPlayer = document.getElementById('video-player');
-            const video = document.getElementById('video');
-            video.src = url;
-            videoPlayer.style.display = 'block';
-            video.play();
+        function openInfoModal(movie) {
+            // Aquí puedes agregar la lógica para buscar la descripción automáticamente
+            document.getElementById('modal-movie-image').src = `https://via.placeholder.com/1080x720?text=${encodeURIComponent(movie.name)}`;
+            document.getElementById('modal-movie-title').innerText = movie.name;
+            document.getElementById('modal-movie-description').innerText = `Descripción ficticia de ${movie.name}.`;
+            document.getElementById('video-player').src = movie.url;
+            document.getElementById('info-modal').style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function openVideoModal() {
+            document.getElementById('info-modal').style.display = 'none';
+            document.getElementById('video-modal').style.display = 'flex';
+            document.getElementById('video-player').play();
         }
 
         // Parsear el archivo M3U y generar las tarjetas
