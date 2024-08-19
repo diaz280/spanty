@@ -8,21 +8,19 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #121212;
-            color: #e0e0e0;
+            background: #f2f2f2;
+            color: #333;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            text-align: center;
         }
 
         h1 {
             margin: 2rem 0;
-            color: #ffffff;
-            font-size: 2rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-size: 2.5rem;
+            color: #111;
         }
 
         .container {
@@ -30,39 +28,35 @@
             width: 100%;
             display: flex;
             flex-wrap: wrap;
-            gap: 1.5rem;
+            gap: 1rem;
             justify-content: center;
+            padding: 0 1rem;
         }
 
         .card {
-            background: #1f1f1f;
-            border-radius: 12px;
-            padding: 1rem;
-            width: calc(50% - 1rem);
-            text-align: center;
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            width: 250px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
         .card:hover {
             transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
         }
 
         .card img {
             width: 100%;
-            height: auto;
-            border-radius: 12px;
-            transition: opacity 0.3s ease;
+            height: 140px;
+            object-fit: cover;
         }
 
         .card h2 {
-            font-size: 1.3rem;
-            margin-top: 0.5rem;
-            color: #e0e0e0;
+            margin: 0.5rem;
+            font-size: 1.2rem;
+            color: #333;
         }
 
         .modal {
@@ -73,72 +67,65 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.6);
             justify-content: center;
             align-items: center;
             padding: 1rem;
         }
 
         .modal-content {
-            background: #1f1f1f;
-            padding: 1rem;
-            border-radius: 12px;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
             max-width: 800px;
             width: 100%;
             text-align: left;
             position: relative;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .modal-content img {
             width: 100%;
             height: auto;
-            border-radius: 12px;
+            border-radius: 8px;
             margin-bottom: 1rem;
         }
 
         .modal-content h2 {
             margin-top: 0;
-            color: #ffffff;
+            color: #111;
         }
 
         .modal-content p {
             font-size: 1rem;
-            color: #cccccc;
+            color: #666;
             margin-bottom: 1.5rem;
         }
 
-        .play-button {
+        .play-button, .back-button {
             display: inline-block;
             padding: 0.75rem 1.5rem;
             background: #ff5722;
-            color: #ffffff;
+            color: #fff;
             border: none;
-            border-radius: 6px;
+            border-radius: 4px;
             cursor: pointer;
             font-size: 1rem;
             transition: background 0.3s ease;
+            margin: 0.5rem 0;
         }
 
-        .play-button:hover {
+        .play-button:hover, .back-button:hover {
             background: #e64a19;
         }
 
-        .close-button,
-        .back-button {
+        .close-button {
             position: absolute;
             top: 10px;
+            right: 10px;
             font-size: 24px;
             cursor: pointer;
-            color: #ffffff;
-        }
-
-        .close-button {
-            right: 10px;
-        }
-
-        .back-button {
-            left: 10px;
+            color: #333;
         }
 
         .video-modal {
@@ -149,24 +136,23 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.8);
             justify-content: center;
             align-items: center;
             padding: 1rem;
         }
 
         .video-modal-content {
+            background: #1f1f1f;
+            border-radius: 8px;
             max-width: 90%;
             width: 100%;
-            background: #1f1f1f;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
             position: relative;
         }
 
         .video-modal video {
             width: 100%;
-            border-radius: 12px;
+            border-radius: 8px;
         }
 
         .video-back-button {
@@ -175,12 +161,12 @@
             left: 10px;
             font-size: 24px;
             cursor: pointer;
-            color: #ffffff;
+            color: #fff;
         }
 
         @media (max-width: 768px) {
             .card {
-                width: calc(100% - 1rem);
+                width: 100%;
             }
         }
     </style>
@@ -215,7 +201,7 @@
         // Ejemplo de contenido de un archivo M3U parseado (esto normalmente vendría de un archivo real)
         const m3uContent = `
 #EXTM3U
-#EXTINF:-1, ben 10
+#EXTINF:-1, Película 1
 https://example.com/movie1.mp4
 #EXTINF:-1, Película 2
 https://example.com/movie2.mp4
@@ -248,7 +234,7 @@ https://example.com/movie3.mp4
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.innerHTML = `
-                    <img src="https://via.placeholder.com/1080x720?text=${encodeURIComponent(movie.name)}" alt="${movie.name}">
+                    <img src="https://via.placeholder.com/250x140?text=${encodeURIComponent(movie.name)}" alt="${movie.name}">
                     <h2>${movie.name}</h2>
                 `;
                 card.addEventListener('click', () => openInfoModal(movie));
@@ -258,7 +244,7 @@ https://example.com/movie3.mp4
 
         function openInfoModal(movie) {
             // Aquí puedes agregar la lógica para buscar la descripción automáticamente
-            document.getElementById('modal-movie-image').src = `https://via.placeholder.com/1080x720?text=${encodeURIComponent(movie.name)}`;
+            document.getElementById('modal-movie-image').src = `https://via.placeholder.com/800x600?text=${encodeURIComponent(movie.name)}`;
             document.getElementById('modal-movie-title').innerText = movie.name;
             document.getElementById('modal-movie-description').innerText = `Descripción ficticia de ${movie.name}.`;
             document.getElementById('info-modal').style.display = 'flex';
