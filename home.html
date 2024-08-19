@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background: #f4f4f4;
+            transition: background 0.3s ease;
+        }
+
+        .container {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .menu {
+            background: #fff;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .menu h1 {
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .menu button {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            color: white;
+            background: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .menu button:hover {
+            background: #0056b3;
+        }
+
+        .accessibility-menu {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: #007bff;
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .accessibility-menu h2 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .accessibility-menu label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .accessibility-menu input[type="range"] {
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .accessibility-menu button {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            color: white;
+            background: #0056b3;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .accessibility-menu button:hover {
+            background: #004080;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="accessibility-menu">
+        <h2>Menú de Accesibilidad</h2>
+        <label for="font-size">Tamaño del texto:</label>
+        <input type="range" id="font-size" min="14" max="24" value="16">
+        <button onclick="resetSettings()">Restablecer</button>
+    </div>
+
+    <div class="container">
+        <div class="menu">
+            <h1>Menú Principal</h1>
+            <button onclick="alert('Opción 1 seleccionada')">Opción 1</button>
+            <button onclick="alert('Opción 2 seleccionada')">Opción 2</button>
+            <button onclick="alert('Opción 3 seleccionada')">Opción 3</button>
+        </div>
+    </div>
+
+    <script>
+        // Ajustar el tamaño del texto según el valor del control deslizante
+        const fontSizeSlider = document.getElementById('font-size');
+        fontSizeSlider.addEventListener('input', function () {
+            document.body.style.fontSize = fontSizeSlider.value + 'px';
+        });
+
+        // Función para restablecer el tamaño del texto a su valor predeterminado
+        function resetSettings() {
+            fontSizeSlider.value = 16;
+            document.body.style.fontSize = '16px';
+        }
+    </script>
+</body>
+
+</html>
