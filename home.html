@@ -19,7 +19,6 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            font-size: 16px;
         }
 
         .nav {
@@ -30,6 +29,9 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .nav h1 {
@@ -43,6 +45,7 @@
             border-radius: 4px;
             color: #e4e7e9;
             width: 150px;
+            max-width: 100%;
         }
 
         .container {
@@ -88,57 +91,13 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
         }
 
-        .accessibility-menu {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            background: #1c1e1f;
-            color: #e4e7e9;
-            padding: 1rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-            width: 200px;
-        }
-
-        .accessibility-menu h2 {
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .accessibility-menu label {
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .accessibility-menu input[type="range"] {
-            width: 100%;
-            margin-bottom: 1rem;
-        }
-
-        .accessibility-menu button {
-            display: block;
-            width: 100%;
-            padding: 0.75rem;
-            font-size: 0.9rem;
-            color: #e4e7e9;
-            background: #007bff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .accessibility-menu button:hover {
-            background: #0056b3;
-        }
-
         @media (max-width: 600px) {
             .nav h1 {
                 font-size: 1.2rem;
             }
 
             .nav .search-bar {
-                width: 100px;
+                width: 120px;
             }
 
             .container {
@@ -151,18 +110,6 @@
 
             .card-content p {
                 font-size: 0.7rem;
-            }
-
-            .accessibility-menu {
-                width: 100%;
-            }
-
-            .accessibility-menu h2 {
-                font-size: 1rem;
-            }
-
-            .accessibility-menu button {
-                font-size: 0.8rem;
             }
         }
     </style>
@@ -199,27 +146,7 @@
         </div>
         <!-- Añadir más tarjetas según sea necesario -->
     </div>
-
-    <div class="accessibility-menu">
-        <h2>Accesibilidad</h2>
-        <label for="font-size">Tamaño del texto:</label>
-        <input type="range" id="font-size" min="14" max="24" value="16">
-        <button onclick="resetSettings()">Restablecer</button>
-    </div>
-
-    <script>
-        // Ajustar el tamaño del texto según el valor del control deslizante
-        const fontSizeSlider = document.getElementById('font-size');
-        fontSizeSlider.addEventListener('input', function () {
-            document.body.style.fontSize = fontSizeSlider.value + 'px';
-        });
-
-        // Función para restablecer el tamaño del texto a su valor predeterminado
-        function resetSettings() {
-            fontSizeSlider.value = 16;
-            document.body.style.fontSize = '16px';
-        }
-    </script>
 </body>
 
 </html>
+
