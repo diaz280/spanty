@@ -111,8 +111,6 @@
 
         .popular-entries {
             padding: 1rem;
-            overflow-x: auto;
-            white-space: nowrap;
             background: #1c1e1f;
         }
 
@@ -122,27 +120,30 @@
             color: #e4e7e9;
         }
 
-        .popular-entries .entry {
-            display: inline-block;
-            position: relative;
-            margin-right: 1rem;
-            border-radius: 8px;
-            overflow: hidden;
-            width: 320px;
-            height: 180px;
+        .entries-wrapper {
+            display: flex;
+            overflow-x: auto;
+            gap: 1rem;
+            padding: 0.5rem 0;
         }
 
-        .popular-entries .entry img {
+        .entry {
+            position: relative;
+            flex: 0 0 auto;
+            width: 320px;
+            height: 180px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #333;
+        }
+
+        .entry img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .popular-entries .entry:hover .overlay {
-            opacity: 1;
-        }
-
-        .popular-entries .entry .overlay {
+        .entry .overlay {
             position: absolute;
             top: 0;
             left: 0;
@@ -158,7 +159,11 @@
             text-align: center;
         }
 
-        .popular-entries .entry .overlay h3 {
+        .entry:hover .overlay {
+            opacity: 1;
+        }
+
+        .entry .overlay h3 {
             font-size: 1rem;
             margin: 0;
         }
@@ -186,6 +191,15 @@
 
             .card-content p {
                 font-size: 0.7rem;
+            }
+
+            .entries-wrapper {
+                flex-direction: column;
+            }
+
+            .entry {
+                width: 100%;
+                height: auto;
             }
         }
     </style>
@@ -230,34 +244,36 @@
 
     <div class="popular-entries">
         <h2>Entradas Populares</h2>
-        <div class="entry">
-            <img src="https://via.placeholder.com/1080x720" alt="Película Popular 1">
-            <div class="overlay">
-                <h3>Película Popular 1</h3>
+        <div class="entries-wrapper">
+            <div class="entry">
+                <img src="https://via.placeholder.com/1080x720" alt="Película Popular 1">
+                <div class="overlay">
+                    <h3>Película Popular 1</h3>
+                </div>
             </div>
-        </div>
-        <div class="entry">
-            <img src="https://via.placeholder.com/1080x720" alt="Película Popular 2">
-            <div class="overlay">
-                <h3>Película Popular 2</h3>
+            <div class="entry">
+                <img src="https://via.placeholder.com/1080x720" alt="Película Popular 2">
+                <div class="overlay">
+                    <h3>Película Popular 2</h3>
+                </div>
             </div>
-        </div>
-        <div class="entry">
-            <img src="https://via.placeholder.com/1080x720" alt="Película Popular 3">
-            <div class="overlay">
-                <h3>Película Popular 3</h3>
+            <div class="entry">
+                <img src="https://via.placeholder.com/1080x720" alt="Película Popular 3">
+                <div class="overlay">
+                    <h3>Película Popular 3</h3>
+                </div>
             </div>
-        </div>
-        <div class="entry">
-            <img src="https://via.placeholder.com/1080x720" alt="Película Popular 4">
-            <div class="overlay">
-                <h3>Película Popular 4</h3>
+            <div class="entry">
+                <img src="https://via.placeholder.com/1080x720" alt="Película Popular 4">
+                <div class="overlay">
+                    <h3>Película Popular 4</h3>
+                </div>
             </div>
-        </div>
-        <div class="entry">
-            <img src="https://via.placeholder.com/1080x720" alt="Película Popular 5">
-            <div class="overlay">
-                <h3>Película Popular 5</h3>
+            <div class="entry">
+                <img src="https://via.placeholder.com/1080x720" alt="Película Popular 5">
+                <div class="overlay">
+                    <h3>Película Popular 5</h3>
+                </div>
             </div>
         </div>
     </div>
