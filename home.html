@@ -73,10 +73,22 @@
             overflow: hidden;
         }
 
-        .hero img {
+        .carousel {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        .carousel img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            position: absolute;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .carousel img.hidden {
+            opacity: 0;
         }
 
         .hero .overlay {
@@ -136,11 +148,28 @@
     </div>
 
     <div class="hero">
-        <img src="https://via.placeholder.com/1920x1080" alt="Imagen Principal">
+        <div class="carousel">
+            <img src="https://via.placeholder.com/1920x1080/ff0000" alt="Película Popular 1" class="visible">
+            <img src="https://via.placeholder.com/1920x1080/00ff00" alt="Película Popular 2" class="hidden">
+            <img src="https://via.placeholder.com/1920x1080/0000ff" alt="Película Popular 3" class="hidden">
+        </div>
         <div class="overlay">
             <h1>Bienvenido a ZecTV</h1>
         </div>
     </div>
+
+    <script>
+        const images = document.querySelectorAll('.carousel img');
+        let currentIndex = 0;
+
+        function showNextImage() {
+            images[currentIndex].classList.add('hidden');
+            currentIndex = (currentIndex + 1) % images.length;
+            images[currentIndex].classList.remove('hidden');
+        }
+
+        setInterval(showNextImage, 6000); // Cambia la imagen cada 6 segundos
+    </script>
 </body>
 
 </html>
