@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -8,10 +9,9 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #f2f2f2;
-            color: #333;
             margin: 0;
-            padding: 0;
+            background: #111;
+            color: #fff;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -20,7 +20,6 @@
         h1 {
             margin: 2rem 0;
             font-size: 2.5rem;
-            color: #111;
         }
 
         .container {
@@ -35,48 +34,23 @@
 
         .card {
             position: relative;
-            background: #fff;
+            background: #222;
             border-radius: 8px;
             overflow: hidden;
             width: 250px;
             cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         .card:hover {
             transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
 
         .card img {
             width: 100%;
             height: 140px;
             object-fit: cover;
-        }
-
-        .card .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            cursor: pointer;
-        }
-
-        .card:hover .overlay {
-            opacity: 1;
-        }
-
-        .play-icon {
-            font-size: 3rem;
-            color: #fff;
         }
 
         .modal {
@@ -87,89 +61,36 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             justify-content: center;
             align-items: center;
-            padding: 1rem;
         }
 
         .modal-content {
             position: relative;
-            background: #000;
-            padding: 2rem;
-            border-radius: 8px;
-            max-width: 1000px;
             width: 100%;
             height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: blur(8px) brightness(0.3);
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .modal-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            background-size: cover;
-            filter: blur(8px);
-            z-index: -1;
-        }
-
-        .modal-info {
-            position: absolute;
-            left: 2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #fff;
-            max-width: 40%;
-        }
-
-        .modal-info img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-
-        .modal-info h2 {
-            margin-top: 0;
-            font-size: 2rem;
-        }
-
-        .modal-info p {
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .play-button {
-            position: absolute;
-            right: 2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            padding: 1rem 2rem;
-            background: #ff5722;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
+        .play-icon {
+            font-size: 6rem;
+            color: #ff5722;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1rem;
+            border-radius: 50%;
             cursor: pointer;
-            font-size: 1.5rem;
-            transition: background 0.3s ease;
+            transition: background 0.3s ease, transform 0.3s ease;
         }
 
-        .play-button:hover {
-            background: #e64a19;
-        }
-
-        .close-button, .video-back-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 24px;
-            cursor: pointer;
-            color: #fff;
+        .play-icon:hover {
+            background: rgba(255, 87, 34, 0.8);
+            transform: scale(1.1);
         }
 
         .video-modal {
@@ -180,23 +101,35 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.9);
             justify-content: center;
             align-items: center;
             padding: 1rem;
         }
 
         .video-modal-content {
+            width: 90%;
+            max-width: 800px;
+            position: relative;
             background: #000;
             border-radius: 8px;
-            max-width: 90%;
-            width: 100%;
-            position: relative;
         }
 
         .video-modal video {
             width: 100%;
             border-radius: 8px;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem;
+            border-radius: 50%;
         }
     </style>
 </head>
@@ -207,24 +140,17 @@
         <!-- Las tarjetas se generan dinámicamente aquí -->
     </div>
 
-    <!-- Modal para Información de la Película -->
+    <!-- Modal de Información -->
     <div class="modal" id="info-modal">
-        <div class="modal-content">
-            <div class="modal-background" id="modal-background"></div>
-            <div class="modal-info">
-                <img id="modal-movie-image" src="" alt="Imagen de la película">
-                <h2 id="modal-movie-title">Título de la Película</h2>
-                <p id="modal-movie-description">Descripción de la película...</p>
-            </div>
-            <button class="play-button" onclick="openVideoModal()">▶️</button>
-            <span class="close-button" onclick="closeModal('info-modal')">&times;</span>
+        <div class="modal-content" id="modal-background">
+            <span class="play-icon" onclick="openVideoModal()">▶️</span>
         </div>
     </div>
 
-    <!-- Modal para el Reproductor de Video -->
+    <!-- Modal del Reproductor de Video -->
     <div class="video-modal" id="video-modal">
         <div class="video-modal-content">
-            <span class="video-back-button" onclick="backToInfoModal()">&larr;</span>
+            <span class="back-button" onclick="backToInfoModal()">←</span>
             <video controls id="video-player"></video>
         </div>
     </div>
@@ -265,19 +191,14 @@ https://example.com/movie3.mp4
                 card.className = 'card';
                 card.innerHTML = `
                     <img src="https://via.placeholder.com/250x140?text=${encodeURIComponent(movie.name)}" alt="${movie.name}">
-                    <div class="overlay" onclick="openInfoModal(${JSON.stringify(movie)})">
-                        <span class="play-icon">▶</span>
-                    </div>
                 `;
+                card.addEventListener('click', () => openInfoModal(movie));
                 container.appendChild(card);
             });
         }
 
         function openInfoModal(movie) {
-            document.getElementById('modal-movie-image').src = `https://via.placeholder.com/800x600?text=${encodeURIComponent(movie.name)}`;
             document.getElementById('modal-background').style.backgroundImage = `url('https://via.placeholder.com/1000x600?text=${encodeURIComponent(movie.name)}')`;
-            document.getElementById('modal-movie-title').innerText = movie.name;
-            document.getElementById('modal-movie-description').innerText = `Descripción ficticia de ${movie.name}.`;
             document.getElementById('info-modal').style.display = 'flex';
         }
 
@@ -288,7 +209,7 @@ https://example.com/movie3.mp4
         function openVideoModal() {
             document.getElementById('info-modal').style.display = 'none';
             document.getElementById('video-modal').style.display = 'flex';
-            document.getElementById('video-player').src = 'https://example.com/movie1.mp4'; // URL del video
+            document.getElementById('video-player').src = 'https://example.com/movie1.mp4'; // Asignar URL del video
             document.getElementById('video-player').play();
         }
 
@@ -297,7 +218,6 @@ https://example.com/movie3.mp4
             document.getElementById('info-modal').style.display = 'flex';
         }
 
-        // Parsear el archivo M3U y generar las tarjetas
         const movies = parseM3U(m3uContent);
         generateCards(movies);
     </script>
