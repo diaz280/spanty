@@ -4,213 +4,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Inteligente Avanzado</title>
+    <title>Chatbot Inteligente</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            color: #ffffff;
+            background: #f0f0f0;
             margin: 0;
-            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            height: 100vh;
         }
 
-        .container {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 30px;
-            border-radius: 20px;
-            width: 500px;
-            box-shadow: 0 0 50px rgba(0, 255, 255, 0.6);
-            position: relative;
-            animation: glow 5s infinite;
+        .chat-container {
+            width: 400px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
-            align-items: center;
-            text-align: center;
         }
 
-        @keyframes glow {
-            0% {
-                box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
-            }
-            50% {
-                box-shadow: 0 0 80px rgba(0, 255, 255, 1);
-            }
-            100% {
-                box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
-            }
+        .chat-box {
+            padding: 20px;
+            height: 300px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ddd;
         }
 
-        h1 {
-            font-size: 2.8em;
-            margin-bottom: 20px;
-            color: #00e1ff;
-            text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+        .chat-message {
+            margin-bottom: 15px;
         }
 
-        #inputArea {
-            margin: 20px 0;
-            width: 100%;
-        }
-
-        input[type="text"] {
-            width: 90%;
-            padding: 12px;
-            font-size: 1.2em;
-            background: rgba(255, 255, 255, 0.15);
-            border: 2px solid #00e1ff;
-            border-radius: 15px;
-            color: #ffffff;
-            margin-bottom: 20px;
-            text-align: center;
-            outline: none;
-            transition: border-color 0.3s, background 0.3s;
-        }
-
-        input[type="text"]:focus {
-            border-color: #00ffc8;
-            background: rgba(255, 255, 255, 0.25);
-        }
-
-        button {
-            padding: 12px 30px;
-            font-size: 1.2em;
-            background: linear-gradient(90deg, #00e1ff, #00ffc8);
-            color: #000;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-            transition: background 0.3s, transform 0.3s;
-        }
-
-        button:hover {
-            background: linear-gradient(90deg, #00ffc8, #00e1ff);
-            transform: scale(1.1);
-        }
-
-        #response {
-            margin-top: 20px;
-            font-size: 1.4em;
-            color: #00ffc8;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
-        }
-
-        .hud {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 1em;
-            color: rgba(255, 255, 255, 0.9);
+        .chat-message.user {
             text-align: right;
         }
 
-        .hud span {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .advanced-tools {
-            background: rgba(0, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
-            margin-top: 40px;
-            text-align: left;
-            width: 100%;
-        }
-
-        .advanced-tools h2 {
-            margin-bottom: 15px;
-            color: #00ffc8;
-            font-size: 1.8em;
-            cursor: pointer;
-        }
-
-        .tool-options {
-            display: none;
-            margin-top: 10px;
-        }
-
-        .tool-options .option {
-            background: rgba(0, 255, 255, 0.25);
-            padding: 12px;
-            margin-bottom: 10px;
+        .chat-message.user p {
+            background: #d1f7c4;
+            padding: 10px;
             border-radius: 10px;
-            cursor: pointer;
-            transition: background 0.3s;
+            display: inline-block;
         }
 
-        .tool-options .option:hover {
-            background: rgba(0, 255, 255, 0.35);
+        .chat-message.bot p {
+            background: #e1e1e1;
+            padding: 10px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .input-area {
+            display: flex;
+            border-top: 1px solid #ddd;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 15px;
+            border: none;
+            border-radius: 0 0 0 10px;
+            outline: none;
+        }
+
+        button {
+            width: 20%;
+            border: none;
+            background: #007bff;
+            color: white;
+            font-size: 1.1em;
+            border-radius: 0 0 10px 0;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Sistema Inteligente</h1>
-        <div class="hud">
-            <span>Estado: Activo</span>
-            <span>Seguridad: Alta</span>
-            <span>Conexión: Encriptada</span>
-            <span>Energía: 89%</span>
-        </div>
-        <div id="inputArea">
-            <input type="text" id="userInput" placeholder="Escribe tu comando...">
-            <br>
-            <button onclick="processInput()">Enviar</button>
-        </div>
-        <div id="response"></div>
-
-        <div class="advanced-tools">
-            <h2 onclick="toggleTools()">Funciones Avanzadas</h2>
-            <div class="tool-options">
-                <div class="option" onclick="accessTool('Análisis profundo de datos')">
-                    Análisis profundo de datos
-                </div>
-                <div class="option" onclick="accessTool('Control remoto de dispositivos')">
-                    Control remoto de dispositivos
-                </div>
-                <div class="option" onclick="accessTool('Vigilancia y monitoreo en tiempo real')">
-                    Vigilancia y monitoreo en tiempo real
-                </div>
-                <div class="option" onclick="accessTool('Gestión y supervisión de redes')">
-                    Gestión y supervisión de redes
-                </div>
+    <div class="chat-container">
+        <div class="chat-box" id="chatBox">
+            <div class="chat-message bot">
+                <p>¡Hola! Soy tu asistente. ¿En qué puedo ayudarte hoy?</p>
             </div>
+        </div>
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="Escribe tu mensaje...">
+            <button onclick="sendMessage()">Enviar</button>
         </div>
     </div>
 
     <script>
-        function processInput() {
-            const userInput = document.getElementById('userInput').value.trim();
-            const response = document.getElementById('response');
+        const responses = {
+            'hola': '¡Hola! ¿Cómo puedo ayudarte?',
+            'tu nombre': 'Soy un chatbot creado para asistirte.',
+            'gracias': '¡De nada! ¿Hay algo más en lo que pueda ayudarte?'
+        };
 
-            if (userInput.toLowerCase().includes('hola')) {
-                response.innerText = "¡Hola! ¿En qué puedo asistirte?";
-            } else if (userInput.toLowerCase().includes('recomendación')) {
-                response.innerText = "Te sugiero la película 'El Proyecto Omega'. Ciencia ficción con toques de suspenso.";
-            } else if (userInput.toLowerCase().includes('sistema')) {
-                response.innerText = "El sistema está operativo. ¿Necesitas acceso a funciones avanzadas?";
-            } else {
-                response.innerText = "Procesando... No se ha detectado un comando específico.";
+        function sendMessage() {
+            const userInput = document.getElementById('userInput').value.trim().toLowerCase();
+            const chatBox = document.getElementById('chatBox');
+
+            if (userInput === '') return;
+
+            // Mostrar mensaje del usuario
+            chatBox.innerHTML += `
+                <div class="chat-message user">
+                    <p>${userInput}</p>
+                </div>
+            `;
+
+            // Mostrar respuesta del chatbot
+            let responseText = responses[userInput];
+            if (!responseText) {
+                responseText = 'Lo siento, no sé la respuesta. ¿Te gustaría que la guardara?';
+                // Guardar la pregunta si el usuario lo desea
+                setTimeout(() => {
+                    const saveResponse = confirm('¿Quieres guardar esta pregunta y respuesta?');
+                    if (saveResponse) {
+                        const userResponse = prompt('Escribe la respuesta para esta pregunta:');
+                        if (userResponse) {
+                            responses[userInput] = userResponse;
+                            alert('La pregunta y respuesta se han guardado.');
+                        }
+                    }
+                }, 1000);
             }
 
+            chatBox.innerHTML += `
+                <div class="chat-message bot">
+                    <p>${responseText}</p>
+                </div>
+            `;
+
+            // Desplazar hacia abajo el chat
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Limpiar el campo de entrada
             document.getElementById('userInput').value = '';
-        }
-
-        function toggleTools() {
-            const tools = document.querySelector('.tool-options');
-            tools.style.display = tools.style.display === 'none' || tools.style.display === '' ? 'block' : 'none';
-        }
-
-        function accessTool(toolName) {
-            const response = document.getElementById('response');
-            response.innerText = `Accediendo a la función: ${toolName}...`;
         }
     </script>
 </body>
