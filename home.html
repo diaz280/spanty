@@ -3,70 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Inteligente - Película Futurista</title>
+    <title>Sistema Inteligente Futurista</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #101820;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: radial-gradient(circle, #0f2027, #203a43, #2c5364);
             color: #ffffff;
+            margin: 0;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
         }
+
         .container {
-            text-align: center;
             background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            width: 400px;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            position: relative;
+            animation: pulse 3s infinite;
         }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 60px rgba(0, 255, 255, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            }
+        }
+
         h1 {
             font-size: 2.5em;
             margin-bottom: 20px;
+            color: #00e1ff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
         }
+
         #inputArea {
             margin: 20px 0;
         }
+
         input[type="text"] {
-            width: 80%;
-            padding: 10px;
+            width: 85%;
+            padding: 12px;
             font-size: 1em;
-            border: none;
-            border-radius: 5px;
-            margin-bottom: 20px;
             background: rgba(255, 255, 255, 0.2);
+            border: 2px solid #00e1ff;
+            border-radius: 10px;
             color: #ffffff;
-        }
-        input[type="text"]:focus {
+            margin-bottom: 20px;
+            text-align: center;
             outline: none;
+            transition: 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #00ffc8;
             background: rgba(255, 255, 255, 0.3);
         }
+
         button {
-            padding: 10px 20px;
-            font-size: 1em;
-            background-color: #007ACC;
-            color: #ffffff;
+            padding: 10px 25px;
+            font-size: 1.1em;
+            background: linear-gradient(45deg, #00e1ff, #00ffc8);
+            color: #000;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+            transition: background 0.3s, transform 0.3s;
         }
+
         button:hover {
-            background-color: #005F99;
+            background: linear-gradient(45deg, #00ffc8, #00e1ff);
+            transform: scale(1.05);
         }
+
         #response {
             margin-top: 20px;
             font-size: 1.2em;
-            color: #00FF00;
+            color: #00ffc8;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+        }
+
+        .hud {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.8);
+            text-align: right;
+        }
+
+        .hud span {
+            display: block;
+            margin-bottom: 5px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Sistema Inteligente</h1>
+        <div class="hud">
+            <span>Estado: Activo</span>
+            <span>Conexión: Estable</span>
+            <span>Nivel de energía: 87%</span>
+        </div>
         <div id="inputArea">
-            <input type="text" id="userInput" placeholder="Escribe aquí...">
+            <input type="text" id="userInput" placeholder="Escribe tu comando...">
             <br>
             <button onclick="processInput()">Enviar</button>
         </div>
@@ -75,18 +126,19 @@
 
     <script>
         function processInput() {
-            const userInput = document.getElementById('userInput').value;
+            const userInput = document.getElementById('userInput').value.trim();
             const response = document.getElementById('response');
 
             if (userInput.toLowerCase().includes('hola')) {
-                response.innerText = "¡Hola! ¿En qué puedo ayudarte hoy?";
+                response.innerText = "¡Saludos, usuario! ¿Cómo puedo asistirte hoy?";
             } else if (userInput.toLowerCase().includes('recomendación')) {
-                response.innerText = "Te recomiendo la película 'Inception'. ¡Es una obra maestra!";
+                response.innerText = "Te sugiero la película 'El Gran Despertar'. Perfecta para una noche de ciencia ficción.";
+            } else if (userInput.toLowerCase().includes('sistema')) {
+                response.innerText = "El sistema está operativo al 100%, listo para ejecutar cualquier comando.";
             } else {
-                response.innerText = "Estoy analizando tu solicitud...";
+                response.innerText = "Procesando tu solicitud... No se detectó un comando válido.";
             }
 
-            // Limpiar el input
             document.getElementById('userInput').value = '';
         }
     </script>
