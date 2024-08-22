@@ -1,30 +1,35 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Inteligente Futurista</title>
+    <title>Sistema Inteligente Futurista - Estilo Espía</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: radial-gradient(circle, #0f2027, #203a43, #2c5364);
+            background: radial-gradient(circle, #141E30, #243B55);
             color: #ffffff;
             margin: 0;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
         }
 
         .container {
             background: rgba(255, 255, 255, 0.1);
             padding: 30px;
             border-radius: 20px;
-            text-align: center;
-            width: 400px;
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            width: 450px;
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.5);
             position: relative;
             animation: pulse 3s infinite;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
 
         @keyframes pulse {
@@ -106,14 +111,44 @@
             display: block;
             margin-bottom: 5px;
         }
+
+        .spy-tools {
+            background: rgba(0, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            margin-top: 30px;
+            text-align: left;
+            width: 100%;
+        }
+
+        .spy-tools h2 {
+            margin-bottom: 10px;
+            color: #00ffc8;
+            font-size: 1.5em;
+        }
+
+        .tool {
+            background: rgba(0, 255, 255, 0.2);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .tool:hover {
+            background: rgba(0, 255, 255, 0.3);
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Sistema Inteligente</h1>
         <div class="hud">
-            <span>Estado: Activo</span>
-            <span>Conexión: Estable</span>
+            <span>Estado: Operativo</span>
+            <span>Conexión: Encriptada</span>
             <span>Nivel de energía: 87%</span>
         </div>
         <div id="inputArea">
@@ -122,6 +157,22 @@
             <button onclick="processInput()">Enviar</button>
         </div>
         <div id="response"></div>
+
+        <div class="spy-tools">
+            <h2>Herramientas Espía</h2>
+            <div class="tool" onclick="accessTool('Análisis de huellas dactilares')">
+                Análisis de huellas dactilares
+            </div>
+            <div class="tool" onclick="accessTool('Interceptar comunicaciones')">
+                Interceptar comunicaciones
+            </div>
+            <div class="tool" onclick="accessTool('Rastreo satelital')">
+                Rastreo satelital
+            </div>
+            <div class="tool" onclick="accessTool('Desactivar alarmas')">
+                Desactivar alarmas
+            </div>
+        </div>
     </div>
 
     <script>
@@ -141,6 +192,12 @@
 
             document.getElementById('userInput').value = '';
         }
+
+        function accessTool(toolName) {
+            const response = document.getElementById('response');
+            response.innerText = `Accediendo a la herramienta: ${toolName}...`;
+        }
     </script>
 </body>
+
 </html>
