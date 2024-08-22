@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: radial-gradient(circle, #141E30, #243B55);
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
             color: #ffffff;
             margin: 0;
             height: 100vh;
@@ -19,91 +19,92 @@
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.7);
             padding: 30px;
             border-radius: 20px;
-            width: 450px;
-            box-shadow: 0 0 40px rgba(0, 255, 255, 0.5);
+            width: 500px;
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.6);
             position: relative;
-            animation: pulse 3s infinite;
+            animation: glow 5s infinite;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
         }
 
-        @keyframes pulse {
+        @keyframes glow {
             0% {
-                box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+                box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
             }
             50% {
-                box-shadow: 0 0 60px rgba(0, 255, 255, 0.8);
+                box-shadow: 0 0 80px rgba(0, 255, 255, 1);
             }
             100% {
-                box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+                box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
             }
         }
 
         h1 {
-            font-size: 2.5em;
+            font-size: 2.8em;
             margin-bottom: 20px;
             color: #00e1ff;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
         }
 
         #inputArea {
             margin: 20px 0;
+            width: 100%;
         }
 
         input[type="text"] {
-            width: 85%;
+            width: 90%;
             padding: 12px;
-            font-size: 1em;
-            background: rgba(255, 255, 255, 0.2);
+            font-size: 1.2em;
+            background: rgba(255, 255, 255, 0.15);
             border: 2px solid #00e1ff;
-            border-radius: 10px;
+            border-radius: 15px;
             color: #ffffff;
             margin-bottom: 20px;
             text-align: center;
             outline: none;
-            transition: 0.3s;
+            transition: border-color 0.3s, background 0.3s;
         }
 
         input[type="text"]:focus {
             border-color: #00ffc8;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.25);
         }
 
         button {
-            padding: 10px 25px;
-            font-size: 1.1em;
-            background: linear-gradient(45deg, #00e1ff, #00ffc8);
+            padding: 12px 30px;
+            font-size: 1.2em;
+            background: linear-gradient(90deg, #00e1ff, #00ffc8);
             color: #000;
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
             transition: background 0.3s, transform 0.3s;
         }
 
         button:hover {
-            background: linear-gradient(45deg, #00ffc8, #00e1ff);
-            transform: scale(1.05);
+            background: linear-gradient(90deg, #00ffc8, #00e1ff);
+            transform: scale(1.1);
         }
 
         #response {
             margin-top: 20px;
-            font-size: 1.2em;
+            font-size: 1.4em;
             color: #00ffc8;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
         }
 
         .hud {
             position: absolute;
             top: 10px;
             right: 10px;
-            font-size: 0.9em;
-            color: rgba(255, 255, 255, 0.8);
+            font-size: 1em;
+            color: rgba(255, 255, 255, 0.9);
             text-align: right;
         }
 
@@ -112,20 +113,20 @@
             margin-bottom: 5px;
         }
 
-        .hidden-tools {
+        .advanced-tools {
             background: rgba(0, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-            margin-top: 30px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
+            margin-top: 40px;
             text-align: left;
             width: 100%;
         }
 
-        .hidden-tools h2 {
-            margin-bottom: 10px;
+        .advanced-tools h2 {
+            margin-bottom: 15px;
             color: #00ffc8;
-            font-size: 1.5em;
+            font-size: 1.8em;
             cursor: pointer;
         }
 
@@ -135,16 +136,16 @@
         }
 
         .tool-options .option {
-            background: rgba(0, 255, 255, 0.2);
-            padding: 10px;
+            background: rgba(0, 255, 255, 0.25);
+            padding: 12px;
             margin-bottom: 10px;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
             transition: background 0.3s;
         }
 
         .tool-options .option:hover {
-            background: rgba(0, 255, 255, 0.3);
+            background: rgba(0, 255, 255, 0.35);
         }
     </style>
 </head>
@@ -153,9 +154,10 @@
     <div class="container">
         <h1>Sistema Inteligente</h1>
         <div class="hud">
-            <span>Estado: Operativo</span>
-            <span>Conexión: Estable</span>
-            <span>Nivel de energía: 85%</span>
+            <span>Estado: Activo</span>
+            <span>Seguridad: Alta</span>
+            <span>Conexión: Encriptada</span>
+            <span>Energía: 89%</span>
         </div>
         <div id="inputArea">
             <input type="text" id="userInput" placeholder="Escribe tu comando...">
@@ -164,20 +166,20 @@
         </div>
         <div id="response"></div>
 
-        <div class="hidden-tools">
+        <div class="advanced-tools">
             <h2 onclick="toggleTools()">Funciones Avanzadas</h2>
             <div class="tool-options">
-                <div class="option" onclick="accessTool('Análisis de datos')">
-                    Análisis de datos
+                <div class="option" onclick="accessTool('Análisis profundo de datos')">
+                    Análisis profundo de datos
                 </div>
-                <div class="option" onclick="accessTool('Control de acceso remoto')">
-                    Control de acceso remoto
+                <div class="option" onclick="accessTool('Control remoto de dispositivos')">
+                    Control remoto de dispositivos
                 </div>
-                <div class="option" onclick="accessTool('Monitoreo de seguridad')">
-                    Monitoreo de seguridad
+                <div class="option" onclick="accessTool('Vigilancia y monitoreo en tiempo real')">
+                    Vigilancia y monitoreo en tiempo real
                 </div>
-                <div class="option" onclick="accessTool('Supervisión de redes')">
-                    Supervisión de redes
+                <div class="option" onclick="accessTool('Gestión y supervisión de redes')">
+                    Gestión y supervisión de redes
                 </div>
             </div>
         </div>
@@ -189,13 +191,13 @@
             const response = document.getElementById('response');
 
             if (userInput.toLowerCase().includes('hola')) {
-                response.innerText = "¡Saludos! ¿En qué puedo ayudarte hoy?";
+                response.innerText = "¡Hola! ¿En qué puedo asistirte?";
             } else if (userInput.toLowerCase().includes('recomendación')) {
-                response.innerText = "Te sugiero la película 'El Gran Despertar'. Una excelente opción de ciencia ficción.";
+                response.innerText = "Te sugiero la película 'El Proyecto Omega'. Ciencia ficción con toques de suspenso.";
             } else if (userInput.toLowerCase().includes('sistema')) {
-                response.innerText = "El sistema está operativo y listo para ejecutar comandos avanzados.";
+                response.innerText = "El sistema está operativo. ¿Necesitas acceso a funciones avanzadas?";
             } else {
-                response.innerText = "Procesando... no se ha detectado un comando válido.";
+                response.innerText = "Procesando... No se ha detectado un comando específico.";
             }
 
             document.getElementById('userInput').value = '';
