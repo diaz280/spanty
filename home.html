@@ -1,80 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stark Industries Interface</title>
+    <title>Chatbot con SimSimi</title>
     <style>
         body {
-            margin: 0;
-            font-family: 'Arial', sans-serif;
-            background-color: #0d0d0d;
-            color: #00e6e6;
+            font-family: Arial, sans-serif;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
             height: 100vh;
-            overflow: hidden;
+            background-color: #f4f4f4;
         }
 
-        .container {
-            width: 80%;
-            height: 80%;
-            border: 2px solid #00e6e6;
+        #chatbox {
+            width: 100%;
+            max-width: 600px;
+            background-color: #fff;
+            border-radius: 5px;
             padding: 20px;
-            position: relative;
-            box-shadow: 0px 0px 20px #00e6e6;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        .header {
-            text-align: center;
-            font-size: 2em;
+        #messages {
+            max-height: 400px;
+            overflow-y: auto;
             margin-bottom: 20px;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-gap: 20px;
+        .message {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
         }
 
-        .module {
-            background: rgba(0, 230, 230, 0.1);
-            padding: 20px;
-            border: 1px solid #00e6e6;
-            box-shadow: 0px 0px 10px #00e6e6;
-            text-align: center;
+        .user-message {
+            background-color: #d1e7dd;
+            text-align: right;
+        }
+
+        .bot-message {
+            background-color: #f8d7da;
+        }
+
+        #user-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #send-btn {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .module:hover {
-            background: rgba(0, 230, 230, 0.2);
-            transform: scale(1.05);
-            box-shadow: 0px 0px 20px #00e6e6;
-        }
-
-        .footer {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.2em;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">Stark Industries Advanced System</div>
-        <div class="grid">
-            <div class="module">Module 1</div>
-            <div class="module">Module 2</div>
-            <div class="module">Module 3</div>
-            <div class="module">Module 4</div>
-            <div class="module">Module 5</div>
-            <div class="module">Module 6</div>
-        </div>
-        <div class="footer">Powered by J.A.R.V.I.S</div>
+    <div id="chatbox">
+        <div id="messages"></div>
+        <input type="text" id="user-input" placeholder="Escribe tu mensaje...">
+        <button id="send-btn">Enviar</button>
     </div>
+
+    <script>
+        document.getElementById('send-btn').addEventListener('click', function() {
+            const userMessage = document.getElementById('user-input').value;
+            if (userMessage.trim() === '') return;
+
+            // Agregar mensaje del usuario al chat
+            addMessage(userMessage, 'user-message');
+
+            // Limpiar la entrada de texto
+            document.getElementById('user-input').value = '';
+
+            // Hacer la solicitud a la API de SimSimi
+            fetch('https://api.simsimi.vn/v1/simtalk', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `text=${encodeURIComponent(userMessage)}&lc=es&key={ "x-simsimi-request-id": "afed6adf9b4e0dedd9c11bfa7400be96", "donate": { "paypal": "cloneek5@gmail.com" }, "contact": "https://t.me/simsimiapi", "ip": "2402:800:6215:ec7d:c89:5b75:95d1:617f", "time": "0.7165s", "language": "en", "status": "200", "text": "what your name", "message": "SimSimma who got the keys to the Beemer ", "id": "249753" }`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    addMessage(data.message, 'bot-message');
+                } else {
+                    addMessage('Error: No se recibió respuesta.', 'bot-message');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                addMessage('Error: No se pudo conectar con la API.', 'bot-message');
+            });
+        });
+
+        function addMessage(text, className) {
+            const messageDiv = document.createElement('div');
+            messageDiv.textContent = text;
+            messageDiv.classList.add('message', className);
+            document.getElementById('messages').appendChild(messageDiv);
+
+            // Hacer scroll hacia abajo cuando se agrega un mensaje nuevo
+            document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+        }
+    </script>
 </body>
 </html>
