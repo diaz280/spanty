@@ -1,233 +1,148 @@
-        <!DOCTYPE html>
+            <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión</title>
+    <title>Chatbot con JSON</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-
         body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            height: 100vh;
+            margin: 0;
+        }
+        .chat-container {
+            width: 350px;
+            max-width: 100%;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
-
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 3rem 2rem;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            animation: slideIn 1.2s ease forwards;
-            opacity: 0;
-        }
-
-        h2 {
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem;
-            color: white;
-        }
-
-        .input-group {
-            position: relative;
-            margin-bottom: 1.5rem;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            font-size: 1rem;
-            border: none;
-            border-radius: 5px;
-            outline: none;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            transition: all 0.3s ease;
-        }
-
-        .input-group input:focus {
-            background: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.2);
-        }
-
-        .input-group label {
-            position: absolute;
-            top: 50%;
-            left: 1rem;
-            transform: translateY(-50%);
-            font-size: 1rem;
-            color: #ccc;
-            pointer-events: none;
-            transition: all 0.3s ease;
-        }
-
-        .input-group input:focus ~ label,
-        .input-group input:not(:placeholder-shown) ~ label {
-            top: 0;
-            left: 1rem;
-            font-size: 0.75rem;
-            color: #fff;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 0 0.25rem;
-            border-radius: 3px;
-        }
-
-        .btn-login {
-            width: 100%;
-            padding: 0.75rem;
-            font-size: 1rem;
-            font-weight: bold;
-            color: white;
-            background: linear-gradient(45deg, #6a11cb, #2575fc);
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            margin-top: 1rem;
-        }
-
-        .btn-login:hover {
-            background: linear-gradient(45deg, #5a0db2, #1e65e6);
-        }
-
-        .links {
-            margin-top: 1rem;
-        }
-
-        .links a {
-            text-decoration: none;
-            color: #ccc;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-            margin: 0 0.5rem;
-        }
-
-        .links a:hover {
-            color: #fff;
-        }
-
-        @keyframes slideIn {
-            0% {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        /* Estilos para la ventana modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-
-        .modal-content {
-            background-color: white;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 300px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .close-btn {
-            background-color: #6a11cb;
-            color: white;
+        .chat-box {
+            height: 400px;
+            overflow-y: auto;
             padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .chat-box p {
+            margin: 10px 0;
+        }
+        .user-message {
+            text-align: right;
+            color: #333;
+        }
+        .bot-message {
+            text-align: left;
+            color: #007bff;
+        }
+        .input-container {
+            display: flex;
+            padding: 10px;
+            background-color: #f5f5f5;
+        }
+        .input-container input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .input-container button {
+            padding: 10px 15px;
             border: none;
-            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
             cursor: pointer;
-            font-size: 1rem;
-            margin-top: 10px;
+            border-radius: 4px;
+            margin-left: 5px;
+        }
+        .input-container button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
-
 <body>
-    <div class="container">
-        <h2>Iniciar Sesión</h2>
-        <form id="login-form">
-            <div class="input-group">
-                <input type="text" id="username" required placeholder=" ">
-                <label>Usuario</label>
-            </div>
-            <div class="input-group">
-                <input type="password" id="password" required placeholder=" ">
-                <label>Contraseña</label>
-            </div>
-            <button type="submit" class="btn-login">Ingresar</button>
-        </form>
-        <div class="links">
-            <a href="#">¿Olvidaste tu contraseña?</a>
-            <a href="#">Regístrate aquí</a>
-        </div>
+
+<div class="chat-container">
+    <div class="chat-box" id="chatBox">
+        <!-- Aquí se mostrarán los mensajes -->
     </div>
-
-    <!-- Ventana Modal para credenciales incorrectas -->
-    <div id="errorModal" class="modal">
-        <div class="modal-content">
-            <p>Usuario o contraseña incorrectos. Inténtalo nuevamente.</p>
-            <button class="close-btn" onclick="closeModal()">Cerrar</button>
-        </div>
+    <div class="input-container">
+        <input type="text" id="userInput" placeholder="Escribe un mensaje...">
+        <button onclick="sendMessage()">Enviar</button>
     </div>
+</div>
 
-    <!-- Importamos el archivo de credenciales -->
-    <script src="credentials.js"></script>
-    <script>
-        // Capturamos el formulario
-        const form = document.getElementById("login-form");
+<script>
+    let responses = {};
 
-        form.addEventListener("submit", function (event) {
-            event.preventDefault(); // Prevenir que el formulario se envíe
+    // Cargar el archivo JSON con las respuestas
+    fetch('/responses')
+        .then(response => response.json())
+        .then(data => {
+            responses = data;
+        })
+        .catch(error => console.error('Error al cargar el archivo JSON:', error));
 
-            // Obtener valores ingresados por el usuario
-            const username = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
+    function sendMessage() {
+        const userInput = document.getElementById("userInput").value;
+        if (userInput.trim() === "") return;
 
-            // Verificar si coinciden con las credenciales importadas desde el archivo credentials.js
-            if (username === credentials.username && password === credentials.password) {
-                // Redirigir a la página home.html si las credenciales son correctas
-                window.location.href = "home.html";
-            } else {
-                // Mostrar la ventana modal si las credenciales son incorrectas
-                document.getElementById('errorModal').style.display = 'block';
+        // Mostrar el mensaje del usuario
+        const userMessage = document.createElement("p");
+        userMessage.className = "user-message";
+        userMessage.textContent = userInput;
+        document.getElementById("chatBox").appendChild(userMessage);
+
+        // Respuesta del bot
+        const botResponse = getBotResponse(userInput);
+        const botMessage = document.createElement("p");
+        botMessage.className = "bot-message";
+        botMessage.textContent = botResponse;
+        document.getElementById("chatBox").appendChild(botMessage);
+
+        // Limpiar el input
+        document.getElementById("userInput").value = "";
+
+        // Hacer scroll hacia abajo
+        document.getElementById("chatBox").scrollTop = document.getElementById("chatBox").scrollHeight;
+    }
+
+    function getBotResponse(input) {
+        input = input.toLowerCase();
+        // Buscar la respuesta en el archivo JSON
+        for (let key in responses) {
+            if (input.includes(key)) {
+                return responses[key];
             }
-        });
-
-        // Función para cerrar la ventana modal
-        function closeModal() {
-            document.getElementById('errorModal').style.display = 'none';
         }
-    </script>
-</body>
 
+        // Si no hay respuesta, pedir al usuario que proporcione una
+        askForNewResponse(input);
+        return "Lo siento, no entiendo lo que dices.";
+    }
+
+    function askForNewResponse(input) {
+        const userResponse = prompt(`No entiendo "${input}". ¿Cómo debería responder?`);
+
+        if (userResponse) {
+            // Enviar la nueva respuesta al servidor
+            fetch('/responses', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ key: input, response: userResponse })
+            })
+            .then(response => response.text())
+            .then(message => alert(message))
+            .catch(error => console.error('Error al enviar la nueva respuesta:', error));
+        }
+    }
+</script>
+
+</body>
 </html>
